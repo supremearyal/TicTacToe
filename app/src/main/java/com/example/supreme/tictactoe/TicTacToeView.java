@@ -112,6 +112,23 @@ public class TicTacToeView extends View {
                             startY_ + height_ / 2 - textBounds.exactCenterY(),
                             gameOverText_);
         }
+        else {
+            if (playerTurn_ == Player.SECOND) {
+                int move = bestMove();
+                board_[move] = playerTurn_ == Player.FIRST ? 1 : 2;
+                playerTurn_ = playerTurn_ == Player.FIRST ? Player.SECOND : Player.FIRST;
+                invalidate();
+            }
+            else if (playerTurn_ == Player.FIRST){
+                try{
+                    Thread.sleep(600);
+                }
+                catch (InterruptedException e)
+                {
+                    // exception handling is for weenies
+                }
+            }
+        }
     }
 
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
@@ -293,11 +310,7 @@ public class TicTacToeView extends View {
                 playerTurn_ = Player.FIRST;
             }
 
-            if (!gameOver()) {
-                int move = bestMove();
-                board_[move] = playerTurn_ == Player.FIRST ? 1 : 2;
-                playerTurn_ = playerTurn_ == Player.FIRST ? Player.SECOND : Player.FIRST;
-            }
+
             invalidate();
         }
 
